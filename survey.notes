@@ -1,0 +1,12 @@
+-----------------------------------------------------------
+    Mixed Integer Approach
+-----------------------------------------------------------
+- decompose model to the summation of a bunch of hinging hyperplanes
+	- each hinge is max(x*theta, 0)
+- determine hinges via optimization problem
+	- objective function is MSE of one step prediction
+- use MILP or MIQP
+cons: 
+	- worst case complexity is exponential
+		- in number of data
+		- in number of hinge functions
