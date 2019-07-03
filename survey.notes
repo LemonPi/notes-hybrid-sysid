@@ -1,5 +1,5 @@
 -----------------------------------------------------------
-    Mixed Integer Approach
+    Mixed Integer
 -----------------------------------------------------------
 - decompose model to the summation of a bunch of hinging hyperplanes
 	- each hinge is max(x*theta, 0)
@@ -10,3 +10,31 @@ cons:
 	- worst case complexity is exponential
 		- in number of data
 		- in number of hinge functions
+
+
+-----------------------------------------------------------
+    Bounded Error
+-----------------------------------------------------------
+- select bound d > 0
+	- require model to satisfy |yk - f(xk)| <= d for all k points
+	- tradeoff between quality of fit and model complexity
+- problem is to estimate min s to partition into s clusters
+	- given N datapoints (yk, xk)
+- equivalent to MIN PFS problem
+	- given N linear inequalities
+	- find partition into min number s of feasible collections of inequalities
+	- NP-hard problem
+- greedy algorithm
+	1. start with some parameter theta maximizing number of satisfied ineq
+		- these become first cluster
+		- do this until all other points are classified
+	2. refine parameters
+		- for all cluster i, compute parameter to minimize the max 1 norm of prediction error
+		- reason is to maintain feasibility of all previously feasible points
+		- consider reassigning all data points
+			- if > d for all i, mark (yk, xk) as infeasible and ignore
+			- if <= d for multiple i, mark (yk, xk) as undecidable and ignore
+		- terminate when parameter updates for all clusters are below threshold
+	3. reduce number of modes
+		- merge if ||theta_i - theta_j||/min(||theta_i||, ||theta_j||) < threshold
+		- discard if too few points in cluster
