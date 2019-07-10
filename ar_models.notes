@@ -1,0 +1,7 @@
+-----------------------------------------------------------
+    Autoregressive
+-----------------------------------------------------------
+- simplest is AR(1) process
+	- x_t = px_{t-1} + e_t
+		- e_t ~ iid(0, sigma^2)
+	- regressed only on the previous term
